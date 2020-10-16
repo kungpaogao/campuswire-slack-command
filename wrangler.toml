@@ -1,6 +1,6 @@
 name = "campuswire-slack-command"
 type = "webpack"
-account_id = ""
+account_id = "9e64632af8fdd19b3fc9a3c3f7a50538"
 workers_dev = true
 route = ""
 zone_id = ""
