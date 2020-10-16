@@ -17,12 +17,24 @@ async function handler(request) {
 
   const req = await request.text();
   const params = qs.parse(req);
-  const num = params["text"].trim();
 
-  const body = JSON.stringify({
-    response_type: "in_channel",
-    text: `${BASE_URL}${num}`,
+  // clean up input
+  const input = params["text"].trim();
+  const clean = input.replace(/[^\d\s]/gi, "");
+  const num = clean.split(" ")[0];
+
+  // error handling
+  let body = JSON.stringify({
+    response_type: "ephemeral",
+    text: "Sorry, that didn't work :( Please try again.",
   });
+
+  if (!!num)
+    body = JSON.stringify({
+      response_type: "in_channel",
+      text: `${BASE_URL}${num}`,
+    });
+
   return new Response(body, init);
 }
 
